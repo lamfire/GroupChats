@@ -1,0 +1,17 @@
+1.进入房间
+向服务器发送:
+{presence:{type:"subscribe",from="member001",to:"group001",profile:{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"}}
+
+其它成员(包括自已)将收到进入消息:
+{presence:{type:"subscribed",from="member001",to:"group001",profile:{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"}}
+
+推送成员列表:
+{presence:{type:"available",from:"group001",to:"member001",status:"chatting",members:[{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"},{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member002","name":"hayash"}]}}
+
+2.成员已离开房间
+{presence:{type:"unsubscribed",from="member001",to:"group001"}
+
+3.发送消息
+{message:{type:"groupchat",to:"group001",from:"member001",body:"hello"}}
+
+
