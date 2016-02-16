@@ -4,6 +4,7 @@ import com.lamfire.code.CRC32;
 import com.lamfire.utils.Bytes;
 import com.lamfire.utils.IOUtils;
 import com.lamfire.utils.RandomUtils;
+import com.lamfire.utils.Threads;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,7 +26,7 @@ public class SocketClient {
         OutputStream os = socket.getOutputStream();
 
 
-        String message = "{\"presence\":{\"from\":\"member001\",\"to\":\"group001\",\"type\":\"subscribe\",\"profile\":{\"avatar\":\"http://www.lamfire.com/avatar.png\",\"gender\":1,\"id\":\"member001\",\"name\":\"lamfire\"}}}";
+        String message = "{\"presence\":{\"from\":\"member002\",\"to\":\"group001\",\"type\":\"subscribe\",\"profile\":{\"avatar\":\"http://www.lamfire.com/avatar.png\",\"gender\":1,\"id\":\"member002\",\"name\":\"hayash\"}}}";
 
 
         byte[] content = message.getBytes();
@@ -45,5 +46,7 @@ public class SocketClient {
 
         byte[] bodyBytes =  IOUtils.readBytes(in,bodyLen);
         System.out.println(new String(bodyBytes));
+
+        Threads.sleep(1000);
     }
 }

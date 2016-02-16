@@ -30,11 +30,11 @@ public class GroupChat implements SessionClosedListener{
 
     public GroupChat (String id){
         this.id = id;
+        this.sessionMgr.addSessionClosedListener(this);
     }
 
     public void addGroupMember(Session session,GroupMember member){
         session.attr(MEMBER_KEY,member);
-        session.addCloseListener(this);
         sessionMgr.add(session);
     }
 

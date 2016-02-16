@@ -37,7 +37,6 @@ public class GroupServer implements MessageReceivedListener {
         builder.bind(host).port(port).messageReceivedListener(this).threads(8);
         hydra = builder.build();
         hydra.startup();
-
         LOGGER.info("startup on - " + host +":" + port);
     }
 
