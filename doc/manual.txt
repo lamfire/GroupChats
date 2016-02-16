@@ -1,7 +1,7 @@
 数据包说明
 数据包共包含4个项:
-int            int      int        string
-数据包总长度   消息ID   可选参数   JSON消息体
+int            int      int          int        string
+数据包总长度   消息ID   消息体长度   可选参数   消息体
 
 
 1.进入房间
