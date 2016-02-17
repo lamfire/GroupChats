@@ -77,7 +77,7 @@ public class GroupServer implements MessageReceivedListener {
                 if(!groupChat.exists(member.getId())){
                     groupChat.addGroupMember(session,member);
                     groupChat.onMemberEnterGroup(session,member);
-                    groupChat.pushMembers(session,member.getId());
+                    groupChat.pushGroupMembers(session,member.getId());
                 }else{
                     groupChat.pushMemberRepeatEnterGroupError(session,member.getId());
                 }

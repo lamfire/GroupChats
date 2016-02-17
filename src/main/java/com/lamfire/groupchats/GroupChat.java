@@ -63,6 +63,15 @@ public class GroupChat implements SessionClosedListener{
         return sessionMgr.isEmpty();
     }
 
+    public void pushDataFormatInvalidError(Session session) {
+        PRESENCE p = new PRESENCE();
+        p.setFrom(id);
+        p.setType(PRESENCE.TYPE_ERROR);
+        p.put("body","Your send data format invalid");
+
+        Message sendMessage = MessageFactory.message(0,0, JSPPUtils.encode(p));
+        session.send(sendMessage);
+    }
 
     public void pushMemberRepeatEnterGroupError(Session session,String memberId){
         PRESENCE p = new PRESENCE();
@@ -75,7 +84,7 @@ public class GroupChat implements SessionClosedListener{
         session.send(sendMessage);
     }
 
-    public void pushMembers(Session session,String memberId){
+    public void pushGroupMembers(Session session,String memberId){
         PRESENCE p = new PRESENCE();
         p.setFrom(id);
         p.setTo(memberId);
@@ -132,13 +141,5 @@ public class GroupChat implements SessionClosedListener{
         onMemberLeaveGroup(member.getId());
     }
 
-    public void pushDataFormatInvalidError(Session session) {
-        PRESENCE p = new PRESENCE();
-        p.setFrom(id);
-        p.setType(PRESENCE.TYPE_ERROR);
-        p.put("body","Your send data format invalid");
 
-        Message sendMessage = MessageFactory.message(0,0, JSPPUtils.encode(p));
-        session.send(sendMessage);
-    }
 }
