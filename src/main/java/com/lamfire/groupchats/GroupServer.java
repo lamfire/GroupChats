@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * Time: 上午10:00
  * To change this template use File | Settings | File Templates.
  */
-public class GroupServer implements MessageReceivedListener {
+public class GroupServer implements MessageReceivedListener,SessionCreatedListener,SessionClosedListener {
     private static final Logger LOGGER = Logger.getLogger(GroupServer.class);
     private final Map<String,GroupChat> groupChats = Maps.newLinkedHashMap();
     private final ScheduledExecutorService service = Threads.newSingleThreadScheduledExecutor(new ThreadFactory("emptyGroupClean"));
@@ -77,7 +77,7 @@ public class GroupServer implements MessageReceivedListener {
                 if(!groupChat.exists(member.getId())){
                     groupChat.addGroupMember(session,member);
                     groupChat.onMemberEnterGroup(session,member);
-                    groupChat.pushGroupMembers(session,member.getId());
+                    groupChat.pushGroupMembers(session, member.getId());
                 }else{
                     groupChat.pushMemberRepeatEnterGroupError(session,member.getId());
                 }
@@ -123,4 +123,14 @@ public class GroupServer implements MessageReceivedListener {
             }
         }
     };
+
+    @Override
+    public void onCreated(Session session) {
+        System.out.println("[Created] - " + session);
+    }
+
+    @Override
+    public void onClosed(Session session) {
+        System.out.println("[Closed] - " + session);
+    }
 }
