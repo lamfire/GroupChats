@@ -119,7 +119,7 @@ public class GroupServer implements MessageReceivedListener {
             }
             for(String id: emptyList ){
                 groupChats.remove(id);
-                LOGGER.info("[Remove_Empty_Group] : " + id);
+                LOGGER.info("[RemoveEmptyGroup] : " + id);
             }
         }
     };

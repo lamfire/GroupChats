@@ -12,7 +12,7 @@ int            int      int          int        string
 {presence:{type:"subscribed",from="member001",to:"group001",profile:{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"}}
 
 服务器在用户进入房间后主动推送成员列表:
-{presence:{type:"available",from:"group001",to:"member001",status:"chatting",members:[{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"},{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member002","name":"hayash"}]}}
+{presence:{type:"available",from:"group001",to:"member001",members:[{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member001","name":"lamfire"},{"avatar":"http://www.lamfire.com/avatar.png","gender":1,"id":"member002","name":"hayash"}]}}
 
 2.成员已离开房间
 {presence:{type:"unsubscribed",from="member001",to:"group001"}
