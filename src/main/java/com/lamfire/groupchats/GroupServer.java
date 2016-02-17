@@ -4,9 +4,15 @@ import com.lamfire.hydra.*;
 import com.lamfire.json.JSON;
 import com.lamfire.jspp.*;
 import com.lamfire.logger.Logger;
+import com.lamfire.utils.Lists;
 import com.lamfire.utils.Maps;
+import com.lamfire.utils.ThreadFactory;
+import com.lamfire.utils.Threads;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +24,7 @@ import java.util.Map;
 public class GroupServer implements MessageReceivedListener {
     private static final Logger LOGGER = Logger.getLogger(GroupServer.class);
     private final Map<String,GroupChat> groupChats = Maps.newLinkedHashMap();
+    private final ScheduledExecutorService service = Threads.newSingleThreadScheduledExecutor(new ThreadFactory("emptyGroupClean"));
 
     private final String host;
     private final int port;
@@ -37,6 +44,7 @@ public class GroupServer implements MessageReceivedListener {
         builder.bind(host).port(port).messageReceivedListener(this).threads(8);
         hydra = builder.build();
         hydra.startup();
+        service.scheduleWithFixedDelay(emptyGroupClean,3,3, TimeUnit.MINUTES);
         LOGGER.info("startup on - " + host +":" + port);
     }
 
@@ -99,4 +107,20 @@ public class GroupServer implements MessageReceivedListener {
             return;
         }
     }
+
+    private Runnable emptyGroupClean = new Runnable() {
+        @Override
+        public void run() {
+            List<String> emptyList = Lists.newArrayList();
+            for(Map.Entry<String,GroupChat> e : groupChats.entrySet()){
+                if(e.getValue().isEmptyMembers()){
+                    emptyList.add(e.getKey());
+                }
+            }
+            for(String id: emptyList ){
+                groupChats.remove(id);
+                LOGGER.info("[Remove_Empty_Group] : " + id);
+            }
+        }
+    };
 }

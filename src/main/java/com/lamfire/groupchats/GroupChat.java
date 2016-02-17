@@ -59,6 +59,10 @@ public class GroupChat implements SessionClosedListener{
         return false;
     }
 
+    public boolean isEmptyMembers(){
+        return sessionMgr.isEmpty();
+    }
+
 
     public void pushMemberRepeatEnterGroupError(Session session,String memberId){
         PRESENCE p = new PRESENCE();

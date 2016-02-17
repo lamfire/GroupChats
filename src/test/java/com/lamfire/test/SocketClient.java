@@ -26,7 +26,7 @@ public class SocketClient {
         OutputStream os = socket.getOutputStream();
 
 
-        String message = "{\"presence\":{\"from\":\"member002\",\"to\":\"group001\",\"type\":\"subscribe\",\"profile\":{\"avatar\":\"http://www.lamfire.com/avatar.png\",\"gender\":1,\"id\":\"member002\",\"name\":\"socket-member\"}}}";
+        String message = "{\"presence\":{\"from\":\"member002\",\"to\":\"group004\",\"type\":\"subscribe\",\"profile\":{\"avatar\":\"http://www.lamfire.com/avatar.png\",\"gender\":1,\"id\":\"member002\",\"name\":\"socket-member\"}}}";
 
 
         byte[] content = message.getBytes();
