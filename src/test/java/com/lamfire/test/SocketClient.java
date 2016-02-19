@@ -22,13 +22,14 @@ public class SocketClient {
 
     public static void main(String[] args) throws Exception {
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress("127.0.0.1",9999));
+        //socket.connect(new InetSocketAddress("127.0.0.1",9999));
+        socket.connect(new InetSocketAddress("183.131.150.179",9999));
         OutputStream os = socket.getOutputStream();
 
 
         String message = "{\"presence\":{\"from\":\"member002\",\"to\":\"group004\",\"type\":\"subscribe\",\"profile\":{\"avatar\":\"http://www.lamfire.com/avatar.png\",\"gender\":1,\"id\":\"member002\",\"name\":\"socket-member\"}}}";
 
-
+        //send
         byte[] content = message.getBytes();
         int len = content.length + 4 + 4 + 4;
         os.write(Bytes.toBytes(len));                        //all-length
@@ -38,12 +39,14 @@ public class SocketClient {
         os.write(content);                                   //body
         os.flush();
 
+        //receive
         InputStream in = socket.getInputStream();
         int packegLen = IOUtils.readInt(in);
         int id = IOUtils.readInt(in);
         int bodyLen = IOUtils.readInt(in);
         int option = IOUtils.readInt(in);
 
+        //show
         byte[] bodyBytes =  IOUtils.readBytes(in,bodyLen);
         System.out.println(new String(bodyBytes));
 

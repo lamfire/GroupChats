@@ -58,7 +58,13 @@ public class GroupServer implements MessageReceivedListener,SessionCreatedListen
     }
 
     private void handleMessage(String groupId,Session session,MESSAGE message){
-        groupChats.get(groupId).onReceivedMessage(session,message);
+        GroupChat groupChat = groupChats.get(groupId);
+        if(groupChat == null){
+            LOGGER.error("group not found - " +groupId);
+            LOGGER.error("send message failed - " +message);
+            return;
+        }
+        groupChat.onReceivedMessage(session,message);
     }
 
     private void handlePresence(String groupId,Session session,PRESENCE presence){
