@@ -20,12 +20,15 @@ public class ChatClient implements MessageReceivedListener {
 
     public static void main(String[] args) throws Exception {
         SnakeBuilder builder = new SnakeBuilder();
-        builder.host("127.0.0.1").port(9999).messageReceivedListener(new ChatClient()).heartbeatEnable(true).heartbeatInterval(5000);
+        //builder.host("127.0.0.1").port(9999).messageReceivedListener(new ChatClient()).heartbeatEnable(true).heartbeatInterval(5000);
+        builder.host("183.131.150.179").port(9999).messageReceivedListener(new ChatClient()).heartbeatEnable(true).heartbeatInterval(60000);
+
 
         Snake snake = builder.build();
         snake.startup();
 
         ////////////
+        String groupId = "@TGS#3ZDIYQAEY";
 
         GroupMember member = new GroupMember();
         member.setId("member001");
@@ -37,14 +40,14 @@ public class ChatClient implements MessageReceivedListener {
         PRESENCE p = new PRESENCE();
         p.setType(PRESENCE.TYPE_SUBSCRIBE);
         p.setFrom("member001");
-        p.setTo("group001");
+        p.setTo(groupId);
         p.put("profile",member);
 
         session.send(MessageFactory.message(0,0, JSPPUtils.encode(p)));
 
         MESSAGE m = new MESSAGE();
         m.setFrom("member001");
-        m.setTo("group001");
+        m.setTo(groupId);
         m.setBody("你好吗?");
 
         session.send(MessageFactory.message(0,0, JSPPUtils.encode(m)));

@@ -51,5 +51,6 @@ public class SocketClient {
         System.out.println(new String(bodyBytes));
 
         Threads.sleep(1000);
+        socket.close();
     }
 }
