@@ -57,11 +57,21 @@ public class GroupServer implements MessageReceivedListener,SessionCreatedListen
         LOGGER.info("shutdown on - " + host +":" + port);
     }
 
+    private void sendError(Session session , JSPP jspp,int errorCode,String errorBody){
+        ERROR error = new ERROR();
+        error.setCode(errorCode);
+        error.setBody(errorBody);
+        jspp.setType("error");
+        jspp.setError(error);
+        Message msg = MessageFactory.message(0,0,JSPPUtils.encode(jspp));
+        session.send(msg);
+    }
+
     private void handleMessage(String groupId,Session session,MESSAGE message){
         GroupChat groupChat = groupChats.get(groupId);
         if(groupChat == null){
-            LOGGER.error("group not found - " +groupId);
-            LOGGER.error("send message failed - " +message);
+            LOGGER.error("group["+groupId+"] not found,send message failed - " +message);
+            sendError(session,message,404,"group["+groupId+"] not found,send message failed.");
             return;
         }
         groupChat.onReceivedMessage(session,message);
