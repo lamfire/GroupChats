@@ -115,7 +115,7 @@ public class GroupChat implements SessionClosedListener{
             Message sendMessage = MessageFactory.message(0,0,JSPPUtils.encode(p));
             s.send(sendMessage);
         }
-        LOGGER.info("[" + member.getId() +"] enter group : " + id);
+        LOGGER.info("[" + member.getId() +"] joined group : " + id);
     }
 
     public void onMemberLeaveGroup(String memberId){
