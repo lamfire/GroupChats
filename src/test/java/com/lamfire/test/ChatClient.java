@@ -20,11 +20,14 @@ public class ChatClient implements MessageReceivedListener,SessionCreatedListene
     static String groupId = "@TGS#3ZDIYQAEY";
 
     public static void main(String[] args) throws Exception {
+        ChatClient client = new ChatClient();
+        client.startup();
+    }
+
+    public void startup(){
         SnakeBuilder builder = new SnakeBuilder();
-        //builder.host("127.0.0.1").port(9999).messageReceivedListener(new ChatClient()).heartbeatEnable(true).heartbeatInterval(5000);
-        builder.host("183.131.150.179").port(9999).messageReceivedListener(new ChatClient()).sessionCreatedListener(new ChatClient()).heartbeatEnable(true).heartbeatInterval(60000).autoConnectRetry(true);
-
-
+        builder.host("127.0.0.1").port(9999).messageReceivedListener(this).heartbeatEnable(true).sessionCreatedListener(this).heartbeatInterval(5000);
+        //builder.host("183.131.150.179").port(9999).messageReceivedListener(this).sessionCreatedListener(this).heartbeatEnable(true).heartbeatInterval(60000).autoConnectRetry(true);
         Snake snake = builder.build();
         snake.startup();
     }
